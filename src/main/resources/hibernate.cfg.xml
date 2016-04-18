@@ -10,11 +10,14 @@
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/cisco-blog</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.enable_lazy_load_no_trans">true</property>
 		<property name="hibernate.show_sql">true</property>
-		<property name="hibernate.connection.isolation">4</property>
+<!-- 		<property name="hibernate.connection.isolation">4</property> -->
 		
         <!-- Referring Mapping File -->
         <mapping resource="org/cisco/blog/data/User.hbm.xml"/>
+        <mapping resource="org/cisco/blog/data/Answers.hbm.xml"/>
+        <mapping resource="org/cisco/blog/data/Question.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
 

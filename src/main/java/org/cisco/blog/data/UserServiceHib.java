@@ -36,7 +36,7 @@ public class UserServiceHib {
 		userDao.closeCurrentSessionwithTransaction();
 	}
 	
-	@GET
+/*	@GET
 	@Path("/{param}")
 	@Produces({MediaType.APPLICATION_JSON})
 	public User findByUsername(@PathParam("param") String username) {
@@ -44,8 +44,8 @@ public class UserServiceHib {
 		User user = userDao.findByUsername(username);
 		userDao.closeCurrentSession();
 		return user;
-	}
-/*	
+	}*/
+	
 	@GET
 	@Path("/{param}")
 	@Produces({MediaType.APPLICATION_JSON})
@@ -54,7 +54,7 @@ public class UserServiceHib {
 		User user = userDao.findById(id);
 		userDao.closeCurrentSession();
 		return user;
-	}*/
+	}
 
 	@DELETE
 	@Path("/{param}")

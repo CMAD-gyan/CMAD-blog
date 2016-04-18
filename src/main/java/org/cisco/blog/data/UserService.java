@@ -1,6 +1,5 @@
 package org.cisco.blog.data;
 
-
 import java.util.List;
 
 
@@ -11,15 +10,25 @@ public class UserService {
 		userDao = new UserDao();
 	}
 
-	public void persist(User entity) {
+	public void persist(User entity) throws Exception {
 		userDao.openCurrentSessionwithTransaction();
-		userDao.persist(entity);
+		try {
+			userDao.persist(entity);
+		} catch (Exception e) {
+			userDao.closeCurrentSession();
+			throw e;
+		} 
 		userDao.closeCurrentSessionwithTransaction();
 	}
 
-	public void update(User entity) {
+	public void update(User entity) throws Exception {
 		userDao.openCurrentSessionwithTransaction();
-		userDao.update(entity);
+		try {
+			userDao.update(entity);
+		} catch (Exception e) {
+			userDao.closeCurrentSession();
+			throw e;
+		} 
 		userDao.closeCurrentSessionwithTransaction();
 	}
 
@@ -44,10 +53,16 @@ public class UserService {
 		return user;
 	}
 
-	public void delete(String id) {
+	public void delete(String id) throws Exception {
 		userDao.openCurrentSessionwithTransaction();
 		User user = userDao.findById(id);
-		userDao.delete(user);
+		try {
+			userDao.delete(user);
+		} catch (Exception e) {
+			userDao.closeCurrentSession();
+			throw e;
+		} 
+		//userDao.delete(user);
 		userDao.closeCurrentSessionwithTransaction();
 	}
 
@@ -58,9 +73,15 @@ public class UserService {
 		return users;
 	}
 	
-	public void deleteAll() {
+	public void deleteAll() throws Exception {
 		userDao.openCurrentSessionwithTransaction();
-		userDao.deleteAll();
+		try {
+			userDao.deleteAll();
+		} catch (Exception e) {
+			userDao.closeCurrentSession();
+			throw e;
+		} 
+		//userDao.deleteAll();
 		userDao.closeCurrentSessionwithTransaction();
 	}
 

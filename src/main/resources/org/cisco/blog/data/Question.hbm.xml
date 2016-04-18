@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
+<hibernate-mapping>
+	<class name="org.cisco.blog.data.Question" table="questions">
+		<id name="questionId" column="question_id" type="int">
+			<generator class="native" />
+		</id>
+		<property name="title" column="title" type="string" />
+		<property name="text" column="text" type="string" />
+		<property name="createTime" column="create_time"  type="timestamp" />
+		<property name="updateTime" column="update_time"  type="timestamp" />
+		<property name="viewsCount" column="views_count"  type="int" />
+		<property name="upvoteCount" column="upvote_count"  type="int" />
+ 		<many-to-one name="user" class="org.cisco.blog.data.User" column="user_id" cascade="none" />
+	</class>
+</hibernate-mapping>
