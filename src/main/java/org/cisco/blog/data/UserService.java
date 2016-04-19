@@ -84,7 +84,7 @@ public class UserService {
 		//userDao.deleteAll();
 		userDao.closeCurrentSessionwithTransaction();
 	}
-
+// test function
 	public UserDao userDao() {
 		return userDao;
 	}
