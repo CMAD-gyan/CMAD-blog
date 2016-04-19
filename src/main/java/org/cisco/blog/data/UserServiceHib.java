@@ -12,6 +12,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Path("/user")
 public class UserServiceHib {
 	private static UserDao userDao;
@@ -19,30 +22,47 @@ public class UserServiceHib {
 	public UserServiceHib() {
 		userDao = new UserDao();
 	}
-	
+
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void persist(User entity) {
+	public void persist(User entity) throws Exception {
 		userDao.openCurrentSessionwithTransaction();
-		userDao.persist(entity);
+		try {
+			userDao.persist(entity);
+		} catch (Exception e) {
+			userDao.closeCurrentSession();
+			throw e;
+		} 
 		userDao.closeCurrentSessionwithTransaction();
 	}
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void update(User entity) {
+	public void update(User entity) throws Exception {
 		userDao.openCurrentSessionwithTransaction();
-		userDao.update(entity);
+		try {
+			userDao.update(entity);
+		} catch (Exception e) {
+			userDao.closeCurrentSession();
+			throw e;
+		} 
 		userDao.closeCurrentSessionwithTransaction();
 	}
-	
-	public User findByUsername(@PathParam("param") String username) {
+
+	public User findByUsername(String username) {
 		userDao.openCurrentSession();
 		User user = userDao.findByUsername(username);
 		userDao.closeCurrentSession();
 		return user;
 	}
 	
+	public boolean  isValidPassword(String username, String password) {
+		userDao.openCurrentSession();
+		boolean result =  userDao.isValidPassword (username, password);
+		userDao.closeCurrentSession();
+		return result;
+	}
+
 	@GET
 	@Path("/{param}")
 	@Produces({MediaType.APPLICATION_JSON})
@@ -56,10 +76,16 @@ public class UserServiceHib {
 	@DELETE
 	@Path("/{param}")
 	@Produces({MediaType.APPLICATION_JSON})
-	public void delete(@PathParam("param") String id) {
+	public void delete(@PathParam("param") String id) throws Exception {
 		userDao.openCurrentSessionwithTransaction();
 		User user = userDao.findById(id);
-		userDao.delete(user);
+		try {
+			userDao.delete(user);
+		} catch (Exception e) {
+			userDao.closeCurrentSession();
+			throw e;
+		} 
+		//userDao.delete(user);
 		userDao.closeCurrentSessionwithTransaction();
 	}
 
@@ -74,19 +100,18 @@ public class UserServiceHib {
 	
 	@DELETE
 	@Produces({MediaType.APPLICATION_JSON})
-	public void deleteAll() {
+	public void deleteAll() throws Exception {
 		userDao.openCurrentSessionwithTransaction();
-		userDao.deleteAll();
+		try {
+			userDao.deleteAll();
+		} catch (Exception e) {
+			userDao.closeCurrentSession();
+			throw e;
+		} 
+		//userDao.deleteAll();
 		userDao.closeCurrentSessionwithTransaction();
 	}
 
-	public boolean  isValidPassword(String username, String password) {
-		userDao.openCurrentSession();
-		boolean result =  userDao.isValidPassword (username, password);
-		userDao.closeCurrentSession();
-		return result;
-	}
-	
 	public UserDao userDao() {
 		return userDao;
 	}
