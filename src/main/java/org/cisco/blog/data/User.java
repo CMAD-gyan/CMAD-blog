@@ -1,19 +1,13 @@
 package org.cisco.blog.data;
-
 import java.sql.Timestamp;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 public class User {
 	private int  id;
-	private String username;
+	private String userName;
 	private String name;
 	private String email;
 	private String password;
-	private Timestamp create_time;
+	private Timestamp createTime;
 	private int score;
 	private boolean active;
 
@@ -21,13 +15,13 @@ public class User {
 	}
 
 	public User(String username, String name, String email, String password){
-		this.username = username;
+		this.userName = username;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.score = 0;
 		this.active = true;
-		this.create_time = new Timestamp(System.currentTimeMillis());
+		this.createTime = new Timestamp(System.currentTimeMillis());
 	}
 
 	public int getId (){
@@ -38,12 +32,12 @@ public class User {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUsername (String username){
-		this.username = username;
+	public void setUserName (String username){
+		this.userName = username;
 	}
 	
 	public String getName() {
@@ -93,19 +87,19 @@ public class User {
 		return active;
 	}
 
-	public Timestamp getCreate_time(){
-		return this.create_time;
+	public Timestamp getCreateTime(){
+		return this.createTime;
 	}
 
 	
-	public void setCreate_time(Timestamp create_time){
-		this.create_time = create_time;
+	public void setCreateTime(Timestamp createTime){
+		this.createTime = createTime;
 	}
 
 	@Override
 	public String toString() {
 		return "User: " + this.id + ", " + this.name + ", " + 
-	            this.email + ", " + this.password + ", " + this.create_time +
+	            this.email + ", " + this.password + ", " + this.createTime +
 	            ", " + this.score + ", " + this.active;
 	}
 
