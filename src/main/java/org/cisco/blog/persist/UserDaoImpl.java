@@ -1,9 +1,11 @@
-package org.cisco.blog.data;
+package org.cisco.blog.persist;
+
 
 import java.io.Serializable;
 import java.util.List;
 
-public interface DaoImpl<T, Id extends Serializable> {
+public interface UserDaoImpl<T, Id extends Serializable> {
+
 	public void persist(T entity);
 	public void update(T entity);
 	public T findById(Id id);

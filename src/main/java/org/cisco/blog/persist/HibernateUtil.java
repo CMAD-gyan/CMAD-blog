@@ -1,4 +1,4 @@
-package org.cisco.blog.data;
+package org.cisco.blog.persist;
 
 
 import org.hibernate.Session;
@@ -32,12 +32,20 @@ public class HibernateUtil {
 		return ses;
 	}
 
-	public static void closeSession() {
+	public static void closeSessionOnException() {
 		Session ses = tlSessions.get();
 		if(ses!=null){
 			ses.close();
 			tlSessions.set(null);
 		}
+	}
+	
+	public static void closeSession() {
+		//Session ses = tlSessions.get();
+		//if(ses!=null){
+		//	ses.close();
+		//	tlSessions.set(null);
+		//}
 	}
 	
 	public static Session openCurrentSessionwithTransaction() {
@@ -54,8 +62,8 @@ public class HibernateUtil {
 		Session ses = tlSessions.get();
 		if(ses!=null){
 			tlTranaction.get().commit();
-			ses.close();
-			tlSessions.set(null);
+			//ses.close();
+			//tlSessions.set(null);
 		}
 	}
 }

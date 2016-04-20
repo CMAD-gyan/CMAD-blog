@@ -1,4 +1,4 @@
-package org.cisco.blog.data;
+package org.cisco.blog.persist;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class QuestionService {
 		try {
 			questionDao.persist(entity);
 		} catch (Exception e) {
-			questionDao.closeCurrentSession();
+			questionDao.closeCurrentSessionOnException();
 			throw e;
 		} 
 		questionDao.closeCurrentSessionwithTransaction();
@@ -27,7 +27,7 @@ public class QuestionService {
 		try {
 			questionDao.update(entity);
 		} catch (Exception e) {
-			questionDao.closeCurrentSession();
+			questionDao.closeCurrentSessionOnException();
 			throw e;
 		} 
 		questionDao.closeCurrentSessionwithTransaction();
@@ -46,7 +46,7 @@ public class QuestionService {
 		try {
 			questionDao.delete(question);
 		} catch (Exception e) {
-			questionDao.closeCurrentSession();
+			questionDao.closeCurrentSessionOnException();
 			throw e;
 		} 		
 		questionDao.closeCurrentSessionwithTransaction();
@@ -64,7 +64,7 @@ public class QuestionService {
 		try {
 			questionDao.deleteAll();
 		} catch (Exception e) {
-			questionDao.closeCurrentSession();
+			questionDao.closeCurrentSessionOnException();
 			throw e;
 		}
 		questionDao.closeCurrentSessionwithTransaction();

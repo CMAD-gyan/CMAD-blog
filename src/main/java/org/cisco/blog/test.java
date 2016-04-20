@@ -4,7 +4,7 @@ import java.util.List;
 import org.cisco.blog.persist.*;
 
 
-public class App 
+public class test 
 {
     public static void main( String[] args )
     {

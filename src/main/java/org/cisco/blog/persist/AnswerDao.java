@@ -1,4 +1,4 @@
-package org.cisco.blog.data;
+package org.cisco.blog.persist;
 
 import java.util.List;
 
@@ -18,6 +18,11 @@ public class AnswerDao implements DaoImpl< Answer, String> {
 	
 	public void openCurrentSession() {
 		HibernateUtil.currentSession();
+		
+	}
+	
+	public void closeCurrentSessionOnException() {
+		HibernateUtil.closeSessionOnException();
 		
 	}
 	

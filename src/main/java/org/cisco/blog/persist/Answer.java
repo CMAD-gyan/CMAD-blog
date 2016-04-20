@@ -1,4 +1,4 @@
-package org.cisco.blog.data;
+package org.cisco.blog.persist;
 import java.sql.Timestamp;
 
 public class Answer {
