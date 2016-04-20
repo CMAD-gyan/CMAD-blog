@@ -3,13 +3,20 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.cisco.blog.persist.Question;
 import org.cisco.blog.persist.QuestionService;
+import org.cisco.blog.persist.User;
+import org.cisco.blog.persist.UserService;
 
 @Path("/questions")
 public class QuestionWsl {
@@ -132,7 +139,19 @@ public class QuestionWsl {
 		return list;
 	}
 	
-
+	public void questionWrite() throws Exception {
+		UserService userService = new UserService();
+		User user = userService.findById(String.valueOf(userId));
+		Question quest = new Question (title, text, user);
+		QuestionService questService  = new QuestionService() ;
+		questService.persist(quest);
+	}
+	
+	public void questionDelete(String id) throws Exception {
+		QuestionService questService  = new QuestionService() ;
+		questService.delete(id);
+	}
+	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<QuestionWsl> questionGet() throws Exception {
@@ -140,5 +159,23 @@ public class QuestionWsl {
 		return a.questionReadAll();
 	}
 	
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void QuestionCreate(QuestionWsl ques) throws Exception {
+		ques.questionWrite();
+	}
+	
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void QuestionUpdate(QuestionWsl ques) throws Exception {
+		ques.questionWrite();
+	} 
+
+	@DELETE
+	@Path("/{param}")
+	public void DeleteQuestion(@PathParam("param") String id) throws Exception {
+		questionDelete(id);
+	}
 	
 }
