@@ -130,7 +130,6 @@ public class UserWsl {
 		user.userWrite();
 	}
 	
-	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void UserUpdate(UserWsl user) throws Exception {
@@ -143,8 +142,6 @@ public class UserWsl {
 		UserWsl  a = new UserWsl();
 		return a.userReadAll();
 	}
-	
-	
 	
 	@DELETE
 	@Path("/{param}")

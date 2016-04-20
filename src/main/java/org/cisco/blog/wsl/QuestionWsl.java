@@ -3,9 +3,15 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 import org.cisco.blog.persist.Question;
 import org.cisco.blog.persist.QuestionService;
 
+@Path("/questions")
 public class QuestionWsl {
 	private int   	    questionId;
 	private String 	    title;
@@ -37,7 +43,7 @@ public class QuestionWsl {
 	}
 
 	
-	QuestionWsl() {
+	public  QuestionWsl() {
 		
 	}
 	
@@ -108,7 +114,7 @@ public class QuestionWsl {
 		return this.updateTime;
 	}
 	
-	public List<QuestionWsl> userReadAll() throws Exception {
+	public List<QuestionWsl> questionReadAll() throws Exception {
 		QuestionService userService  = new QuestionService() ;
 		List<QuestionWsl> list = new ArrayList<QuestionWsl>();
 		List<Question> user = userService.findAll();
@@ -119,12 +125,20 @@ public class QuestionWsl {
 					                         b.getUpdateTime(),
 					                         b.getViewsCount(),
 					                         b.getUpvoteCount(),
-					                         b.getUser().getUserName(), 
-					                         b.getUser().getId() );
+					                         b.getUser() == null ? "anonymous": b.getUser().getUserName(), 
+					                        b.getUser() == null ? 0:b.getUser().getId() );
 			list.add(up);
 		}
 		return list;
 	}
 	
 
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<QuestionWsl> questionGet() throws Exception {
+		QuestionWsl  a = new QuestionWsl();
+		return a.questionReadAll();
+	}
+	
+	
 }
