@@ -35,6 +35,7 @@ public class HibernateUtil {
 	public static void closeSessionOnException() {
 		Session ses = tlSessions.get();
 		if(ses!=null){
+			ses.clear();
 			ses.close();
 			tlSessions.set(null);
 		}
@@ -43,6 +44,7 @@ public class HibernateUtil {
 	public static void closeSession() {
 		//Session ses = tlSessions.get();
 		//if(ses!=null){
+		//	ses.clear();
 		//	ses.close();
 		//	tlSessions.set(null);
 		//}
@@ -62,6 +64,7 @@ public class HibernateUtil {
 		Session ses = tlSessions.get();
 		if(ses!=null){
 			tlTranaction.get().commit();
+			ses.clear();
 			//ses.close();
 			//tlSessions.set(null);
 		}

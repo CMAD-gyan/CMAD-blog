@@ -9,10 +9,20 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
 		</id>
 		<property name="title" column="title" type="string" />
 		<property name="text" column="text" type="string" />
-		<property name="createTime" column="create_time"  type="timestamp" />
-		<property name="updateTime" column="update_time"  type="timestamp" />
-		<property name="viewsCount" column="views_count"  type="int" />
-		<property name="upvoteCount" column="upvote_count"  type="int" />
- 		<many-to-one name="user" class="org.cisco.blog.persist.User" column="user_id" cascade="none" />
+		<property name="createTime" column="create_time" type="timestamp" />
+		<property name="updateTime" column="update_time" type="timestamp" />
+		<property name="viewsCount" column="views_count" type="int" />
+		<property name="upvoteCount" column="upvote_count" type="int" />
+		<many-to-one name="user" class="org.cisco.blog.persist.User"
+			column="user_id" cascade="none" />
+
+		<set name="answers" table="answers" inverse="true" lazy="true">
+			<key>
+				<column name="questions_question_id" not-null="true" />
+			</key>
+			<one-to-many class="org.cisco.blog.persist.Answer" />
+		</set>
+
+
 	</class>
 </hibernate-mapping>

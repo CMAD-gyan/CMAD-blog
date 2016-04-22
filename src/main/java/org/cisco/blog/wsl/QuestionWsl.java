@@ -28,8 +28,7 @@ public class QuestionWsl {
 	private int 		upvoteCount;
 	private String      username;
 	private int         userId;
-	
-	
+		
 	QuestionWsl(String title, String text) {
 		this.title = title;
 		this.text = text;
@@ -49,7 +48,6 @@ public class QuestionWsl {
 		this.userId        = userId;
 	}
 
-	
 	public  QuestionWsl() {
 		
 	}
@@ -111,8 +109,6 @@ public class QuestionWsl {
 		this.userId = userId;
 	}
 	
-	
-	
 	public void setUpdateTime (Timestamp updateTime) {
 		this.updateTime = updateTime;
 	}
@@ -120,6 +116,8 @@ public class QuestionWsl {
 	public Timestamp getUpdateTime () {
 		return this.updateTime;
 	}
+	
+	
 	
 	public List<QuestionWsl> questionReadAll() throws Exception {
 		QuestionService userService  = new QuestionService() ;
@@ -153,13 +151,34 @@ public class QuestionWsl {
 	}
 	
 	@GET
+	@Path("/{param}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public QuestionWsl quesGet(@PathParam("param") String param) throws Exception {
+		//System.out.println("dd" + param);
+		QuestionService qS = new QuestionService();
+		Question q = qS.findById(param);
+		QuestionWsl  a = null;
+		
+		if (q != null)
+		 a = new QuestionWsl(q.getQuestionId(), 
+				                         q.getTitle(), 
+				                         q.getText(), 
+				                         q.getUpdateTime(), 
+				                         q.getViewsCount(), 
+				                         q.getUpvoteCount(),
+				                         q.getUser() == null ? "anonymous": q.getUser().getUserName(), 
+				                         q.getUser() == null ? 0:q.getUser().getId() );
+		return a;
+	}
+	
+	
+	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<QuestionWsl> questionGet() throws Exception {
 		QuestionWsl  a = new QuestionWsl();
 		return a.questionReadAll();
 	}
-	
-	
+		
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void QuestionCreate(QuestionWsl ques) throws Exception {
@@ -175,7 +194,7 @@ public class QuestionWsl {
 	@DELETE
 	@Path("/{param}")
 	public void DeleteQuestion(@PathParam("param") String id) throws Exception {
-		questionDelete(id);
-	}
-	
+		QuestionWsl q = new QuestionWsl();
+		q.questionDelete(id);
+	}	
 }

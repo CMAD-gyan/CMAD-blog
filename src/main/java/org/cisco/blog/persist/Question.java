@@ -1,5 +1,6 @@
 package org.cisco.blog.persist;
 import java.sql.Timestamp;
+import java.util.Set;
 
 public class Question {
 	private int  questionId;
@@ -10,7 +11,7 @@ public class Question {
 	private int viewsCount;
 	private int upvoteCount;
 	private User user;
-
+	private Set<Answer> answers; 
 	public Question( ) {
 	}
 	
@@ -86,6 +87,14 @@ public class Question {
 	
 	public void setUser (User user) {
 		this.user = user;
+	}
+	
+	public Set<Answer> getAnswers () {
+		return answers;
+	}
+	
+	public void setAnswers (Set<Answer> answers) {
+		this.answers = answers;
 	}
 	
 	@Override

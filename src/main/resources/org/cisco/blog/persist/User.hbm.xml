@@ -11,9 +11,24 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
 		<property name="name" column="name" type="string" />
 		<property name="email" column="email" type="string" />
 		<property name="password" column="password" type="string" />
-		
-		<property name="createTime" column="create_time"  type="timestamp" />
-		<property name="score" column="score"  type="int" />
-		<property name="active" column="active"  type="boolean"/>
+
+		<property name="createTime" column="create_time" type="timestamp" />
+		<property name="score" column="score" type="int" />
+		<property name="active" column="active" type="boolean" />
+
+		<set name="answers" table="answers" inverse="true" lazy="true">
+			<key>
+				<column name="user_id" not-null="false" />
+			</key>
+			<one-to-many class="org.cisco.blog.persist.Answer" />
+		</set>
+
+		<set name="question" table="question" inverse="true" lazy="true">
+			<key>
+				<column name="user_id" not-null="false" />
+			</key>
+			<one-to-many class="org.cisco.blog.persist.Question" />
+		</set>
+
 	</class>
 </hibernate-mapping>

@@ -42,6 +42,7 @@ public class QuestionDao implements DaoImpl< Question, String> {
 	}
 
 	public Question findById(String id) {
+		System.out.println( "dddd:"+ id);
 		Question question = (Question) HibernateUtil.currentSession().get(Question.class, Integer.valueOf(id));
 		return question; 
 	}
