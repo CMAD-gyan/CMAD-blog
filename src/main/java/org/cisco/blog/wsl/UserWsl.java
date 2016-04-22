@@ -14,12 +14,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.cisco.blog.persist.Question;
 
 import org.cisco.blog.persist.User;
 import org.cisco.blog.persist.UserService;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Path("/users")

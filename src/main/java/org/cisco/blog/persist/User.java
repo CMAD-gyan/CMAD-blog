@@ -1,5 +1,6 @@
 package org.cisco.blog.persist;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Set;
 
 public class User {

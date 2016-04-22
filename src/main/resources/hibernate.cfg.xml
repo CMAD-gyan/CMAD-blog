@@ -10,6 +10,7 @@
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/cisco-blog</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.current_session_context_class">thread</property>
 <!--         <property name="hibernate.enable_lazy_load_no_trans">true</property> -->
 		<property name="hibernate.show_sql">true</property>
 <!-- 		<property name="hibernate.connection.isolation">4</property> -->

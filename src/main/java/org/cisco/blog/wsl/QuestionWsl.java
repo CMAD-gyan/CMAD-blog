@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.cisco.blog.persist.Question;
 import org.cisco.blog.persist.QuestionService;
+
 import org.cisco.blog.persist.User;
 import org.cisco.blog.persist.UserService;
 
@@ -51,8 +52,7 @@ public class QuestionWsl {
 	public  QuestionWsl() {
 		
 	}
-	
-	
+		
 	public int getQuestionId() {
 		return this.questionId;
 	}
@@ -120,18 +120,18 @@ public class QuestionWsl {
 	
 	
 	public List<QuestionWsl> questionReadAll() throws Exception {
-		QuestionService userService  = new QuestionService() ;
+		QuestionService questionService  = new QuestionService() ;
 		List<QuestionWsl> list = new ArrayList<QuestionWsl>();
-		List<Question> user = userService.findAll();
-		for (Question b : user) {
-			QuestionWsl up = new QuestionWsl(b.getQuestionId(), 
-					                         b.getTitle(), 
-					                         b.getText(),
-					                         b.getUpdateTime(),
-					                         b.getViewsCount(),
-					                         b.getUpvoteCount(),
-					                         b.getUser() == null ? "anonymous": b.getUser().getUserName(), 
-					                        b.getUser() == null ? 0:b.getUser().getId() );
+		List<Question> question = questionService.findAll();
+		for (Question q : question) {
+			QuestionWsl up = new QuestionWsl(q.getQuestionId(), 
+					                         q.getTitle(), 
+					                         q.getText(),
+					                         q.getUpdateTime(),
+					                         q.getViewsCount(),
+					                         q.getUpvoteCount(),
+					                         q.getUser() == null ? "anonymous": q.getUser().getUserName(), 
+					                         q.getUser() == null ? 0:q.getUser().getId() );
 			list.add(up);
 		}
 		return list;
