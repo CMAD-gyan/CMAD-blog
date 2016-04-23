@@ -64,7 +64,8 @@ public class HibernateUtil {
 		Session ses = tlSessions.get();
 		if(ses!=null){
 			tlTranaction.get().commit();
-			ses.clear();
+			ses.flush();
+			//ses.clear();
 			//ses.close();
 			//tlSessions.set(null);
 		}
