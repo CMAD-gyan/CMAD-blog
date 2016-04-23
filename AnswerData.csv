@@ -1,0 +1,239 @@
+"answer_id";"text";"create_time";"update_time";"upvote_count";"questions_question_id";"user_id"
+1;"If you're only concerned about unsigned types, yes, converting -1 is correct for all standard C++ implementations. Operations on unsigned types, including conversions of signed types to unsigned types, are guaranteed to work modulo (max+1).";"2016-04-23 23:02:13";"2016-04-23 23:02:13";1;1;22
+2;"Yes, it is good enough.
+But I prefer a hex value because my background is embedded systems, and I have always had to know the sizeof(T).
+Even in desktop systems, we know the sizes of the following T:
+uint8_t  allones8  = 0xff;
+uint16_t allones16 = 0xffff;
+uint32_t allones32 = 0xffffffff;
+uint64_t allones64 = 0xffffffffffffffff;";"2016-04-23 23:39:40";"2016-04-23 23:39:40";5;1;24
+3;"You should use an enum for materials instead of string and you can use a Dictionary to hold corresponding sound combinations. You can skip multiple if statements and select corresponding object for each material automatically using the Dictionary. For example:
+
+[Flags]
+enum Material  
+    {  
+        Wood=1,
+        Iron=2,
+        Glass=4
+        //...  
+    }  
+Dictionary<Material,SoundObject> sounds = new Dictionary<Material,SoundObject>();  
+sounds.add(Material.Wood,woodSound);  
+sounds.add(Material.Iron,ironSound);  
+sounds.add(Material.Wood | Material.Iron,woodAndIronSound);
+
+// And play corresponding sound directly without any if statement.  
+sounds[object.Material].Play();  
+sounds[matA | matB].Play();  ";"2016-04-23 23:54:01";"2016-04-23 23:54:01";3;2;25
+4;"It might not be the most modern solution, but using prime numbers as references to your materials could increase your performance. I know and understand that ""optimizing before it's necessary"" is what many programmers don't recommend, however, in this context I think it does by far not increase the complexity of the code, but increases the performance of this (fairly trivial) task.
+
+public static class Materials
+{
+   public static uint Wood = 2,
+   public static uint Metal = 3,
+   public static uint Dirt = 5,
+   // etc...
+}
+
+if(matA*matB == Materials.Wood*Materials.Metal)
+{
+   //play sound for metal-wood collision
+}
+
+//or with enums but annoying casts are necessary...
+
+enum Materials:uint
+{
+   Wood = 2,
+   Metal = 3,
+   Dirt = 5,
+   // etc...
+}
+
+if((uint)matA*(uint)matB == (uint)Materials.Wood*(uint)Materials.Metal)
+{
+   //play sound for metal-wood collision
+}
+This approach is independent of order of materials (commutative multiplication) and does not need any long comparison of strings or any more complex structures than integers.
+
+Assuming that you would like to keep all reference numbers 4-byte integers and the square root of the largest 4-byte integer is around 65535, that would leave you with around 6550 possible prime numbers below 65535, such that no product would cause an integer overflow. That should by far be enough for any common game.";"2016-04-23 23:54:01";"2016-04-23 23:54:01";2;2;24
+5;"__weakref__ is just an opaque object that references all the weak references to the current object. In actual fact it's an instance of weakref (or sometimes weakproxy) which is both a weak reference to the object and part of a doubly linked list to all weak references for that object.
+
+It's just an implementation detail that allows the garbage collector to inform weak references that it's referent has been collected, and to not allow access to it's underlying pointer any more.
+
+The weak reference can't rely on checking the reference count of the object it refers to This is because that memory may have been reclaimed and now being used by another object. Best case scenario the VM will crash, worst case the weak reference will allow access to an object it wasn't originally referring to. This is why the garbage collector must inform the weak reference it's referent is no longer valid.";"2016-04-23 23:54:01";"2016-04-23 23:54:01";4;3;22
+6;"You could do this by simply testing for
+
+01|12|23|34|45|56|67|78|89";"2016-04-23 23:54:01";"2016-04-23 23:54:01";2;4;30
+7;"You just need to loop through each number and check next one. Then add that pair of values to a result variable:
+
+var numb = ""5136789431235"";
+var res = [];
+for (var i = 0, len = numb.length; i < len-1; i++) {
+  if (numb[i] < numb[i+1]) res.push(new Array(numb[i],numb[i+1]))
+}
+res.forEach(function(k){console.log(k)});
+Here is fiddle";"2016-04-23 23:54:01";"2016-04-23 23:54:01";3;4;24
+8;"Try this to match consecutive numbers
+
+var matches = [""""]; numb.split("""").forEach(function(val){ 
+  var lastNum = 0;
+  if ( matches[matches.length-1].length > 0 )
+  {
+    lastNum = parseInt(matches[matches.length-1].slice(-1),10);
+  }
+  var currentNum = parseInt(val,10);
+  if ( currentNum == lastNum + 1 ) 
+  { 
+    matches[matches.length-1] += String(currentNum); 
+  }
+  else 
+  { 
+    if ( matches[matches.length-1].length > 1 ) 
+    { 
+       matches.push(String(currentNum)) 
+    } 
+    else 
+    { matches[matches.length-1] = String(currentNum); 
+    } 
+  }
+});
+matches = matches.filter(function(val){ return val.length > 1 }) //outputs [""6789"", ""123""]";"2016-04-23 23:54:01";"2016-04-23 23:54:01";2;4;25
+9;"In C++, the typical way to ""drop const"" is by using const_cast<>:
+
+char *name = const_cast<char*>(GetName());
+This is, of course, frowned upon, ugly and potentially dangerous, since it's really possible that GetName() returns a pointer to something that shouldn't be changed, and then you go and give yourself permission to change it. It's a good way to get very hard to find bugs, in that case.
+
+A workaround is to use a std::string as a temporary holding area; it will mean copying the string but that might be acceptable performance-wise:
+
+std::string s(GetName());
+char *name = s.c_str();
+This will of course only work if name isn't kept around when s goes out of scope. If that is the case, then you're going to have some form of persistent string storage layer.";"2016-04-24 00:05:53";"2016-04-24 00:05:53";1;5;21
+10;"You could explicitly cast it. (char*) getName(). But you probably shouldn't. Because the const bit means something like ""promise not to change it"". So if i have a function void foo(const char* string) I am saiying: ""give me a pointer to a string. I won't change it."" And if you declare a variable const char* string = ""hello""; You are saying, this string should not be changed. And because you make this promise, the compiler knows, and can make your code more efficient. This is why:
+
+const char* a = ""hello"";
+const char* b = ""hello"";
+(a==b); //is probably true
+your compiler knows you won't change a or b so it makes them point to the same address, so it only has to store one ""hello"" string. If you now go about changing a, b gets also changed, and this is not what you wanted.
+
+So long story short, if you are absolutely sure that the function your calling does not change the string, you can explicitly cast it. (or better, change the function to (const char*) if it's yours).
+If your not sure, you will have to make a copy. (Like you are already doing with strcpy()).";"2016-04-24 00:05:53";"2016-04-24 00:05:53";3;5;22
+11;"The opposite is true. You can use extern C to add code you want to compile as C code using a C++ compiler.
+
+Unless I'm missing something you can't compile C++ code with a C compiler.";"2016-04-24 00:09:33";"2016-04-24 00:09:33";1;6;23
+12;"extern ""C"" tells the C++ compiler that functions with declarations or prototypes in the ""extern C"" block won't be name-mangled, which fixes this problem.
+
+If you are including a C header file that isn’t provided by the system, and if you are able to change the C header, you should strongly consider adding the extern ""C"" {...} logic inside the header to make it easier for C++ users to #include it into their C++ code. Since a C compiler won’t understand the extern ""C"" construct, you must wrap the extern ""C"" { and } lines in an #ifdef so they won’t be seen by normal C compilers.Reference link Here.
+
+C++ supports function name overloading by using Name mangling to create the actual function name in object files, where the ""real"" function name must be unique.
+
+C does not do this, so if you compile a C file using a standard C compiler in ""C mode"" (whatever that means for the particular compiler), its object file will not have function names mangled, and you'll get link errors if you attempt to call functions in it from C++ if you only have the function definition in your C++ file (or header).";"2016-04-24 00:09:33";"2016-04-24 00:09:33";0;6;26
+13;"extern ""C"" is a way of putting C code in C++ code. More specifically it tells the compiler to disable certain things like function overloading so that it can also turn off the name mangling. In C++ a simple function like:
+
+int add(int a, int b) {
+    return a+b;
+}
+Will actually get some funky name in the library to denote the parameters so that if you define another function like:
+
+double add(double a, double b) {
+    return a+b;
+}
+That it knows which one to call. You don't want that if you're trying to use a C library and that's what extern ""C"" is for. All of this being said, extern ""C"" does not allow C++ in a C program.";"2016-04-24 00:09:33";"2016-04-24 00:09:33";1;6;27
+14;"It's because 1 << 35 is an operation using int. If you want 64-bit types then use 1ULL << 35 to make sure it's an operation using unsigned long long (which is guaranteed to be at least 64 bits).";"2016-04-24 00:13:25";"2016-04-24 00:13:25";3;7;23
+15;"auto x = std::uint64_t(1) << 35;";"2016-04-24 00:13:25";"2016-04-24 00:13:25";2;7;24
+16;"The problem you have is that the compile time evaluate constant expression 1 << 35 is performed with int types. So it's likely you are overflowing that type and the behaviour is undefined!
+
+The simplest fix is to use 1ULL << 35. An unsigned long long literal must be at least 64 bits.";"2016-04-24 00:13:25";"2016-04-24 00:13:25";2;7;26
+17;"uint64_t x = 1000000000ull;
+The ull marks the value as unsigned long long
+
+int64_t y = 1000000000ll;
+The same with a normal long long.
+
+uint64_t x2 = (1ull << 35ull);
+Simply add ull at the end of your number.";"2016-04-24 00:13:25";"2016-04-24 00:13:25";0;7;30
+18;"Assuming A as the input array, here's a vectorized approach based on initialization with zeros -
+
+# Get indices at which such diff>15 occur 
+cut_idx = np.where(np.diff(A[:,1]) > 15)[0]
+
+# Initiaize output array
+out = np.zeros((A.shape[0]+len(cut_idx),2),dtype=A.dtype)
+
+# Get row indices in the output array at which rows from A are to be inserted.
+# In other words, avoid rows to be kept as zeros. Finally, insert rows from A.
+idx = ~np.in1d(np.arange(out.shape[0]),cut_idx + np.arange(1,len(cut_idx)+1))
+out[idx] = A
+Sample input, output -
+
+In [50]: A  # Different from the one posted in question to show variety
+Out[50]: 
+array([[   0.  ,    0.  ],
+       [   1.85,    0.6 ],
+       [   2.73,   19.13],
+       [   2.2 ,   76.33],
+       [   2.49,   85.85],
+       [   2.55,  104.9 ],
+       [   2.65,  114.47],
+       [   1.79,  163.98],
+       [   2.86,  169.55]])
+
+In [51]: out
+Out[51]: 
+array([[   0.  ,    0.  ],
+       [   1.85,    0.6 ],
+       [   0.  ,    0.  ],
+       [   2.73,   19.13],
+       [   0.  ,    0.  ],
+       [   2.2 ,   76.33],
+       [   2.49,   85.85],
+       [   0.  ,    0.  ],
+       [   2.55,  104.9 ],
+       [   2.65,  114.47],
+       [   0.  ,    0.  ],
+       [   1.79,  163.98],
+       [   2.86,  169.55]])";"2016-04-24 00:15:32";"2016-04-24 00:15:32";0;8;25
+19;"Assuming I understand what you're trying to do, you could do something like this:
+
+var person = bidInfo.Companies
+            .Where(c=>c.CompanyDomain != null)
+            .SelectMany(c=>c.CompanyDomain.People)
+            .SingleOrDefault(p=>p.Name == bidInfo.ArchitectPerson.Name);
+Note that you're already not filtering on the company (you're just getting the first company that has someone with that name, what if there are multiples? If that's not possible then the company check is useless and you may as well do as I do and just select all people then filter on that instead of going inside of each company, checking if the person is there, then somehow going up and back down!)";"2016-04-24 00:17:58";"2016-04-24 00:17:58";1;9;21
+20;"If I understand correctly, you are trying to find the first company with a person that has the same name as the architect, and then return both.
+
+If so, then I think this will work:
+
+var query =
+    from c in bidInfo.Companies
+    from p in c.CompanyDomain.People
+    where p.Name == bidInfo.ArchitectPerson.Name
+    select new { c, p };
+
+var first = query.FirstOrDefault();
+
+Company existingCompany = first?.c;
+Person existingPerson = first?.p;
+Let me know if I've missed anything.
+
+";"2016-04-24 00:17:58";"2016-04-24 00:17:58";1;9;23
+21;"It's an implicit conversion; the class CWnd has an operator HWND() conversion function, and HWND is a pointer type.
+
+Deleting that HWND is an error, but the compiler doesn't know that and can't warn you.";"2016-04-24 00:20:39";"2016-04-24 00:20:39";2;10;27
+22;"It's possible to write a simple mcve that reproduces the behaviour that you're asking about:
+
+struct foo {
+    operator int*() {
+        return nullptr;
+    }
+
+    void bar() {
+       delete *this; 
+    }
+};
+
+int main() {
+    foo f;
+    f.bar();
+}
+This compiles because foo is implicitly convertible to a pointer type. Same could be the case for your class.";"2016-04-24 00:20:39";"2016-04-24 00:20:39";1;10;26

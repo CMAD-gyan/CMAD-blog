@@ -1,0 +1,120 @@
+"question_id";"title";"text";"create_time";"update_time";"views_count";"upvote_count";"user_id"
+1;"Is static_cast<T>(-1) the right way to generate all-one-bits data without numeric_limits?";"I'm writing C++ code in an environment in which I don't have access to the C++ standard library, specifically not to std::numeric_limits. Suppose I want to implement template <typename T> constexpr T all_ones( /* ... */ ) Focusing on unsigned integral types, what do I put there? Specifically, is static_cast<T>(-1) good enough or shoul? (Other types I could treat as an array of unsigned chars based on their size I guess.)";"2016-04-23 22:49:06";"2016-04-23 22:49:06";2;1;22
+2;"Is it possible to simplify an if-statement that checks for a combination?";"I'm currently working on adding sound effects to a game, and although my current code is working fine, I'm looking for a way to simplify it. Basically, each object in the game has a string value indicating its material (ie. ""wood"", ""metal"", etc.), and when two objects collide, a sound effect is played based on the combination. The code essentially looks like this:
+
+if( (matA == ""metal"" && matB == ""wood"") || (matA == ""wood"" && matB == ""metal"") )
+{
+    //play sound for metal-wood collision
+}
+But I'm wondering if there's a way to simplify the if-statement to something like this:
+
+if( one of the materials is wood && one of the materials is metal )
+{
+    //play sound for metal-wood collision
+}";"2016-04-23 23:41:24";"2016-04-23 23:41:24";3;2;23
+3;"What exactly is __weakref__ in Python?";"Surprisingly, there's no explicit documentation for __weakref__. Weak references are explained here. __weakref__ is also shortly mentioned in the documentation of __slots__. But I could not find anything about __weakref__ itself.
+
+What exactly is __weakref__? - Is it just a member acting as a flag: If present, the object may be weakly-referenced? - Or is it a function/variable that can be overridden/assigned to get a desired behavior? How?";"2016-04-23 23:53:54";"2016-04-23 23:53:54";1;0;26
+4;"How do I match the numbers sequence rising?";"I have a string contains just numbers. Something like this:
+
+var numb = ""5136789431235"";
+And I'm trying to match ascending numbers which are two or more digits. In string above I want this output:
+
+var numb = ""5136789431235"";
+//             ^^^^  ^^^
+Actually I can match a number which has two or more digits: /[0-9]{2,}/g, But I don't know how can I detect being ascending?";"2016-04-23 23:53:54";"2016-04-23 23:53:54";2;1;29
+5;"How to store a const char* to a char*?";"I have this code that works as expected:
+
+#define MAX_PARAM_NAME_LEN 32
+
+const char* GetName()
+{
+    return ""Test text"";
+}
+
+int main()
+{
+    char name[MAX_PARAM_NAME_LEN];
+    strcpy(name, GetName());    
+
+    cout << ""result: "" << name << endl;
+}
+If I'd like to store the result to a char * (because some functions within a Frameworks I'm using use only char * as input) without using the strcpy (for practicality and readability of code, and learning too), how could I do? Keeping in const, this works well:
+
+const char* name;
+name = GetName();
+but I still have const.
+
+Trying to just use char*:
+
+char* name;
+name = GetName();
+I get invalid conversion from 'const char*' to 'char*'. What's the best habit for this kind of conversion?";"2016-04-23 23:57:46";"2016-04-23 23:57:46";2;2;28
+6;"how does extern “C” allow C++ code in a C file?";"In order to use C++ code in a C file, I read that we can just do extern ""C"" { (where the c++ code goes here)}, but when I try printing something out using cout, I keep getting an error because it does not recognize the library . I think I am just confused on how extern ""C"" allows you to use C++ code in C.";"2016-04-24 00:07:38";"2016-04-24 00:07:38";4;0;21
+7;"How to initialize uint64_t in C++11";"uint64_t x(1 << 35) gives the output as 0 with a warning. What would the most appropriate to initialize such large values?";"2016-04-24 00:11:08";"2016-04-24 00:11:08";5;4;27
+8;"Inserting rows of zeros at specific places along the rows of a NumPy array";"I have a two column numpy array. I want to go through each row of the 2nd column, and take the difference between each set of 2 numbers (9.6-0, 19.13-9.6, etc). If the difference is > 15, I want to insert a row of 0s for both columns. I really only need to end up with values in the first column (I only need the second to determine where to put 0s), so if it's easier to split them up that would be fine.
+
+This is my input array:
+
+ [[0.00 0.00]
+ [1.85 9.60]
+ [2.73 19.13]
+ [0.30 28.70]
+ [2.64 38.25]
+ [2.29 47.77]
+ [2.01 57.28]
+ [2.61 66.82]
+ [2.20 76.33]
+ [2.49 85.85]
+ [2.55 104.90]
+ [2.65 114.47]
+ [1.79 123.98]
+ [2.86 133.55]]
+and it should turn into:
+
+ [[0.00 0.00]
+ [1.85 9.60]
+ [2.73 19.13]
+ [0.30 28.70]
+ [2.64 38.25]
+ [2.29 47.77]
+ [2.01 57.28]
+ [2.61 66.82]
+ [2.20 76.33]
+ [2.49 85.85]
+ [0.00 0.00]
+ [2.55 104.90]
+ [2.65 114.47]
+ [1.79 123.98]
+ [2.86 133.55]]";"2016-04-24 00:14:50";"2016-04-24 00:14:50";1;0;30
+9;"How do I combine these two linq queries into a single query?";"How can I get this in to one query? What I want is the Person from the Company that matches the name of the person I'm searching for.
+
+Currently I get the Company and then run basically the same search.
+
+var existingCompany = bidInfo.Companies
+        .FirstOrDefault( c=> c.CompanyDomain != null && 
+                           c.CompanyDomain.People.FirstOrDefault( 
+                                 p => p.Name == bidInfo.ArchitectPerson.Name ) 
+                                        != null);
+Person existingPerson=null;
+if (existingCompany !=null)
+{
+     existingPerson = existingCompany.CompanyDomain.People.FirstOrDefault(p => p.Name == bidInfo.ArchitectPerson.Name);
+}";"2016-04-24 00:16:52";"2016-04-24 00:16:52";2;1;29
+10;"Why does “delete *this” ever compile?";"I am deriving a class from MFC CDialogEx:
+
+class MyDialog : public CDialogEx
+{
+  public:
+    virtual void PostNcDestroy();
+    …
+  …
+};
+I implemented PostNcDestroy as such:
+
+void MyDialog::PostNcDestroy()
+{
+    CDialogEx::PostNcDestroy();
+    delete *this; // oops, typo
+}
+I was surprised to see that this code compiles (using VC120, or Visual Studio 2013) , and generates no warning at all. Can anybody tell why this is the case?";"2016-04-24 00:19:25";"2016-04-24 00:19:25";3;1;24
