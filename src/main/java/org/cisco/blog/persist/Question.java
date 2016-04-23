@@ -1,6 +1,5 @@
 package org.cisco.blog.persist;
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Set;
 
 public class Question {
@@ -13,7 +12,6 @@ public class Question {
 	private int upvoteCount;
 	private User user;
 	private Set<Answer> answers;
-	//private List<Answer> answers;
 	public Question( ) {
 	}
 	

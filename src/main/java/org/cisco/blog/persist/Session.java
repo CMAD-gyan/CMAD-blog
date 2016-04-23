@@ -7,7 +7,7 @@ public class Session {
 	private String userName;
 	private int userId;
 	private User user;
-	
+
 	public Session() {
 	}
 
@@ -29,7 +29,7 @@ public class Session {
 	public Timestamp getExpiryTime(){
 		return this.expiryTime;
 	}
-	
+
 	public void setExpiryTime(Timestamp expiryTime){
 		this.expiryTime = expiryTime;
 	}
@@ -37,23 +37,23 @@ public class Session {
 	public String getUserName(){
 		return this.userName;
 	}
-	
+
 	public void setUserName(String username){
 		this.userName = username;
 	}
-	
+
 	public User getUser(){
 		return this.user;
 	}
-	
+
 	public void setUser(User user){
 		this.user = user;
 	}
-	
+
 	public int getId(){
 		return this.userId;
 	}
-	
+
 	public void setId(int id){
 		this.userId = id;
 	}

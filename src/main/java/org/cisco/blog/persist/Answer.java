@@ -11,7 +11,6 @@ public class Answer {
 	private Question question;
 	
 	public Answer() {
-	
 	}
 	
 	public Answer(String text, User user, Question question) {
@@ -85,5 +84,4 @@ public class Answer {
 	            this.createTime + ", " + this.updateTime +
 	            ", " + this.upvoteCount + ", " + this.question.toString() + ", " + this.user.toString();
 	}
-	
 }

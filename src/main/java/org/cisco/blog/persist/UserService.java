@@ -2,7 +2,6 @@ package org.cisco.blog.persist;
 
 import java.util.List;
 
-
 public class UserService {
 	private static UserDao userDao;
 
@@ -62,7 +61,6 @@ public class UserService {
 			userDao.closeCurrentSession();
 			throw e;
 		} 
-		//userDao.delete(user);
 		userDao.closeCurrentSessionwithTransaction();
 	}
 
@@ -81,12 +79,10 @@ public class UserService {
 			userDao.closeCurrentSession();
 			throw e;
 		} 
-		//userDao.deleteAll();
 		userDao.closeCurrentSessionwithTransaction();
 	}
-// test function
+
 	public UserDao userDao() {
 		return userDao;
 	}
-
 }

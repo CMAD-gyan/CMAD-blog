@@ -46,7 +46,6 @@ public class AnswerWsl {
 	}
 	
 	public AnswerWsl() {
-		
 	}
 	
 	public void setAnswerId (int answerId) {
@@ -73,7 +72,6 @@ public class AnswerWsl {
 	public void setUpdateTime (Timestamp updateTime) {
 		this.updateTime = updateTime;
 	}
-	
 
 	public int getUpvoteCount () {
 		return this.upvoteCount;
@@ -87,11 +85,9 @@ public class AnswerWsl {
 		return this.questionTitle;
 	}
 	
-	
 	public void setQuestionTitle (String questionTitle) {
 		this.questionTitle = questionTitle;
 	}
-
 
 	public String getUsername () {
 		return this.username;
@@ -116,9 +112,6 @@ public class AnswerWsl {
 	public void setQuestionId (int questionId) {
 		this.questionId = questionId;
 	}
-	
-	
-	
 
 	public List<AnswerWsl> answersReadAll() throws Exception {
 		AnswerService answerService  = new AnswerService() ;
@@ -150,7 +143,6 @@ public class AnswerWsl {
 		QuestionService questService  = new QuestionService();
 		Question ques = questService.findById(String.valueOf(questionId));
 		Set<Answer> ans = ques.getAnswers();
-		
 		for (Answer a : ans) {
 			AnswerWsl up = new AnswerWsl( a.getText() , a.getUpdateTime(),
 					                      a.getUpvoteCount(), a.getQuestion().getTitle(), 

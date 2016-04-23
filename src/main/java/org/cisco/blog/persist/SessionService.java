@@ -28,13 +28,19 @@ public class SessionService {
 		} 
 		sessionDao.closeCurrentSessionwithTransaction();
 	}
+
+	public User getUser(String UUID) {
+		Session session = findByUUID(UUID);
+		
+		if (session != null){
+			return session.getUser();
+		}
+		return null;
+	}
 	
 	public Session findByUUID(String UUID) {
 		sessionDao.openCurrentSession();
 		Session session = sessionDao.findByUUID(UUID);
-		//User user=session.getUser();
-		//sessionDao.closeCurrentSession();
-		//add expiry time
 		return session;
 	}	
 	
@@ -47,7 +53,6 @@ public class SessionService {
 			sessionDao.closeCurrentSession();
 			throw e;
 		} 
-		//sessionDao.delete(session);
 		sessionDao.closeCurrentSessionwithTransaction();
 	}
 	
@@ -59,7 +64,6 @@ public class SessionService {
 			sessionDao.closeCurrentSession();
 			throw e;
 		} 
-		//sessionDao.deleteAll();
 		sessionDao.closeCurrentSessionwithTransaction();
 	}
 
