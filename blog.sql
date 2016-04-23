@@ -101,8 +101,9 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `cisco-blog`.`session` ;
 
 CREATE TABLE IF NOT EXISTS `cisco-blog`.`session` (
-  `token` VARCHAR(125) NOT NULL COMMENT '',
+  `token` VARCHAR(255) NOT NULL COMMENT '',
   `expiry_time` TIMESTAMP NOT NULL COMMENT '',
+  `username` VARCHAR(30) NOT NULL COMMENT '',
   `user_id` BIGINT(20) NOT NULL COMMENT '',
   PRIMARY KEY (`token`)  COMMENT '',
   UNIQUE INDEX `token_UNIQUE` (`token` ASC)  COMMENT '',
@@ -110,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `cisco-blog`.`session` (
   CONSTRAINT `fk_session_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `cisco-blog`.`user` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
