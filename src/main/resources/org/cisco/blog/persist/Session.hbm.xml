@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
+<hibernate-mapping>
+	<class name="org.cisco.blog.persist.Session" table="session">
+		<id name="UUID" column="token" type="string">
+			<generator class="uuid" />
+		</id>
+		<property name="expiryTime" column="expiry_time"  type="timestamp" />
+		<property name="userName" column="username" type="string" />
+		<many-to-one name="user" class="org.cisco.blog.persist.User" column="user_id" cascade="none" />
+	</class>
+</hibernate-mapping>

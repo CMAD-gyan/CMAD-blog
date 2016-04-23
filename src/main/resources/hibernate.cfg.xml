@@ -13,12 +13,13 @@
         <property name="hibernate.current_session_context_class">thread</property>
 <!--         <property name="hibernate.enable_lazy_load_no_trans">true</property> -->
 		<property name="hibernate.show_sql">true</property>
-<!-- 		<property name="hibernate.connection.isolation">4</property> -->
+		<property name="hibernate.connection.isolation">4</property>
 		
         <!-- Referring Mapping File -->
         <mapping resource="org/cisco/blog/persist/User.hbm.xml"/>
         <mapping resource="org/cisco/blog/persist/Answers.hbm.xml"/>
         <mapping resource="org/cisco/blog/persist/Question.hbm.xml"/>
+        <mapping resource="org/cisco/blog/persist/Session.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
 
