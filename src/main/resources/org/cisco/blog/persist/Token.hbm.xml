@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
 <hibernate-mapping>
-	<class name="org.cisco.blog.persist.Session" table="session">
+	<class name="org.cisco.blog.persist.Token" table="session">
 		<id name="UUID" column="token" type="string">
 			<generator class="uuid" />
 		</id>

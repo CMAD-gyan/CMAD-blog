@@ -19,7 +19,7 @@
         <mapping resource="org/cisco/blog/persist/User.hbm.xml"/>
         <mapping resource="org/cisco/blog/persist/Answers.hbm.xml"/>
         <mapping resource="org/cisco/blog/persist/Question.hbm.xml"/>
-        <mapping resource="org/cisco/blog/persist/Session.hbm.xml"/>
+        <mapping resource="org/cisco/blog/persist/Token.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
 

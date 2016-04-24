@@ -1,17 +1,17 @@
 package org.cisco.blog.persist;
 import java.sql.Timestamp;
 
-public class Session {
+public class Token {
 	private String UUID;
 	private Timestamp expiryTime;
 	private String userName;
 	private int userId;
 	private User user;
 
-	public Session() {
+	public Token() {
 	}
 
-	public Session(User user){
+	public Token(User user){
 		this.userName = user.getName();
 		this.userId = user.getId();
 		this.expiryTime = new Timestamp(System.currentTimeMillis() + (60*60*1000));
