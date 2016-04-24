@@ -2,8 +2,12 @@ package org.cisco.blog.persist;
 
 import java.util.List;
 
-public class SessionDao implements DaoImpl< Session, String> {
-	public SessionDao() {
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
+
+public class TokenDao implements DaoImpl< Token, String> {
+	public TokenDao() {
 	}
 
 	public void openCurrentSessionwithTransaction() {
@@ -27,36 +31,43 @@ public class SessionDao implements DaoImpl< Session, String> {
 		HibernateUtil.closeSession();
 	}
 	
-	public void persist(Session entity) {
+	public void persist(Token entity) {
 		HibernateUtil.currentSession().save(entity);
 	}
 
-	public void update(Session entity) {
+	public void update(Token entity) {
 		HibernateUtil.currentSession().update(entity);
 	}
 
-	public Session findByUUID(String UUID) {
-		Session session = (Session) HibernateUtil.currentSession().get(Session.class, UUID);
-		return session; 
+	public Token findByUUID(String UUID) {
+		Token token = (Token) HibernateUtil.currentSession().get(Token.class, UUID);
+		return token; 
 	}
 	
-	public void delete(Session entity) {
+	public Token findByUserName(String name) {
+		Session session = HibernateUtil.currentSession();
+		Criteria criteria = session.createCriteria(Token.class);
+		Token token = (Token) criteria.add(Restrictions.eq("userName", name)).uniqueResult();
+		return token;
+	}
+	
+	public void delete(Token entity) {
 		HibernateUtil.currentSession().delete(entity);
 	}
 
-	public List<Session> findAll() {
+	public List<Token> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public void deleteAll() {
-		List<Session> entityList = findAll();
-		for (Session entity : entityList) {
+		List<Token> entityList = findAll();
+		for (Token entity : entityList) {
 			delete(entity);
 		}
 	}
 
-	public Session findById(String id) {
+	public Token findById(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

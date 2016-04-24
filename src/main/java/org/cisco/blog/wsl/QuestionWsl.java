@@ -50,7 +50,6 @@ public class QuestionWsl {
 	}
 
 	public  QuestionWsl() {
-		
 	}
 		
 	public int getQuestionId() {
@@ -59,7 +58,6 @@ public class QuestionWsl {
 	public void setQuestionId(int id){
 		this.questionId = id;
 	}
-	
 	
 	public String getTitle () {
 		return this.title;
@@ -116,9 +114,7 @@ public class QuestionWsl {
 	public Timestamp getUpdateTime () {
 		return this.updateTime;
 	}
-	
-	
-	
+
 	public List<QuestionWsl> questionReadAll() throws Exception {
 		QuestionService questionService  = new QuestionService() ;
 		List<QuestionWsl> list = new ArrayList<QuestionWsl>();
@@ -170,7 +166,6 @@ public class QuestionWsl {
 				                         q.getUser() == null ? 0:q.getUser().getId() );
 		return a;
 	}
-	
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

@@ -1,6 +1,5 @@
 package org.cisco.blog.persist;
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Set;
 
 public class User {
@@ -68,7 +67,6 @@ public class User {
 		this.password = password;
 	}
 	
-	
 	public int getScore() {
 		return score;
 	}
@@ -76,7 +74,6 @@ public class User {
 	public void setScore (int score){
 		this.score = score;
 	}
-
 	
 	public boolean getActive() {
 		return active;
@@ -86,7 +83,6 @@ public class User {
 		this.active = active;
 	}
 	
-	
 	public boolean isActive(){
 		return active;
 	}
@@ -94,7 +90,6 @@ public class User {
 	public Timestamp getCreateTime(){
 		return this.createTime;
 	}
-
 	
 	public void setCreateTime(Timestamp createTime){
 		this.createTime = createTime;
@@ -122,7 +117,4 @@ public class User {
 	            this.email + ", " + this.password + ", " + this.createTime +
 	            ", " + this.score + ", " + this.active;
 	}
-
-
-
 }

@@ -21,12 +21,10 @@ public class UserDao implements DaoImpl<User, String> {
 	
 	public void openCurrentSession() {
 		HibernateUtil.currentSession();
-		
 	}
 	
 	public void closeCurrentSession() {
 		HibernateUtil.closeSession();
-		
 	}
 	
 	public void persist(User entity) {
@@ -55,7 +53,6 @@ public class UserDao implements DaoImpl<User, String> {
 		Criteria criteria = session.createCriteria(User.class);
 		User user = (User) criteria.add(Restrictions.eq("userName", username)).uniqueResult();
 		if (user != null &&   password.equals(user.getPassword())) {
-			
 			result = true;
 		}
 		return result;
