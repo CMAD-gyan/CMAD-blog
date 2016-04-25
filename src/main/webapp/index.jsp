@@ -77,14 +77,14 @@
     </script>
 </head>
 
-<body>
+<body style="font-family: 'Nunito', sans-serif; color: #384047;">
     
 	<div  class="nav">
       <ul>
         <li> <a  class="active"  href="#home">Home</a></li>
         <li> <a  href="#contact">Contact</a></li>
         <li> <a  href="#about">About</a></li>
-        <li  style="float:right"><a  href="#signup">SignUp</a></li>
+        <li  style="float:right"><a  href="signup.jsp">SignUp</a></li>
         <li  style="float:right"><a  href="#login">Login</a></li>
       </ul>
     </div>
