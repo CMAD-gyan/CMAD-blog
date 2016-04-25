@@ -5,6 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="css/myStyle.css">
     <script src="scripts/jquery-2.1.3.js"></script>
     <script>
+    
     var dataBackup = null;
         $(document).ready(function() {
         	
@@ -99,7 +100,7 @@
 				</table>
 			</td>
             <td  style="width: 100%; text-align: center; vertical-align: center;">
-              <h3 style = "background: #324c97; color:#fff;">Popular Questions</h3>
+              <h3 style = "background: #324c97; color:#fff;">Popular Questions --</h3>
               <table id="sampleQuestions" style="width: 100%;  border: 2px solid #324c97;" >
               	
               </table>
